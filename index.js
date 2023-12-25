@@ -110,7 +110,7 @@ app.get("/products", async (req, res) => {
   res.send(result);
 });
 
-app.get("/products/:id", async (req, res) => {
+app.get("/products/:id", verifyCookie, async (req, res) => {
   const id = req.params.id;
   const query = { _id: new ObjectId(id) };
   const result = await productsCollections.findOne(query)
@@ -123,7 +123,7 @@ app.post("/carts", verifyCookie, async (req, res) => {
   res.send(result);
 });
 
-app.get("/carts/:email", async (req, res) => {
+app.get("/carts/:email", verifyCookie, async (req, res) => {
   const userEmail = req.params.email;
   const query = { email: userEmail };
   const result = await cartsCollections.find(query).toArray();
